@@ -216,6 +216,36 @@ if [[ -d "$HOME/Library/Application Support/Cursor/User" ]]; then
 fi
 
 # =============================================================================
+# INSTALL EDITOR EXTENSIONS
+# =============================================================================
+
+print_step "Installing editor extensions..."
+
+# VS Code extensions
+if command -v code &> /dev/null; then
+    print_step "Installing VS Code extensions..."
+    while IFS= read -r extension; do
+        code --install-extension "$extension" --force 2>/dev/null || true
+    done < "$DOTFILES_DIR/config/vscode/extensions.txt"
+    print_success "VS Code extensions installed"
+else
+    print_warning "VS Code CLI not found - install extensions manually or install VS Code first"
+fi
+
+# Cursor extensions
+if command -v cursor &> /dev/null || [[ -f "/Applications/Cursor.app/Contents/Resources/app/bin/cursor" ]]; then
+    print_step "Installing Cursor extensions..."
+    CURSOR_CMD="cursor"
+    [[ -f "/Applications/Cursor.app/Contents/Resources/app/bin/cursor" ]] && CURSOR_CMD="/Applications/Cursor.app/Contents/Resources/app/bin/cursor"
+    while IFS= read -r extension; do
+        $CURSOR_CMD --install-extension "$extension" --force 2>/dev/null || true
+    done < "$DOTFILES_DIR/config/cursor/extensions.txt"
+    print_success "Cursor extensions installed"
+else
+    print_warning "Cursor CLI not found - install extensions manually or install Cursor first"
+fi
+
+# =============================================================================
 # SETUP SSH DIRECTORY
 # =============================================================================
 
