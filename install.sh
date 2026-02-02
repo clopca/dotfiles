@@ -245,6 +245,21 @@ else
     print_warning "Cursor CLI not found - install extensions manually or install Cursor first"
 fi
 
+# Install Dracula Pro theme (paid theme, copied from backup)
+print_step "Installing Dracula Pro theme..."
+if [[ -d "$DOTFILES_DIR/config/themes/dracula-theme-pro.theme-dracula-pro-1.1.0" ]]; then
+    # Install to VS Code
+    if [[ -d "$HOME/.vscode/extensions" ]]; then
+        cp -r "$DOTFILES_DIR/config/themes/dracula-theme-pro.theme-dracula-pro-1.1.0" "$HOME/.vscode/extensions/"
+        print_success "Dracula Pro installed for VS Code"
+    fi
+    # Install to Cursor
+    if [[ -d "$HOME/.cursor/extensions" ]]; then
+        cp -r "$DOTFILES_DIR/config/themes/dracula-theme-pro.theme-dracula-pro-1.1.0" "$HOME/.cursor/extensions/"
+        print_success "Dracula Pro installed for Cursor"
+    fi
+fi
+
 # =============================================================================
 # SETUP SSH DIRECTORY
 # =============================================================================

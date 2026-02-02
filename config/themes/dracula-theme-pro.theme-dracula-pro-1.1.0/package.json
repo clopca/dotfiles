@@ -1,0 +1,86 @@
+{
+	"name": "theme-dracula-pro",
+	"version": "1.1.0",
+	"displayName": "Dracula Pro",
+	"homepage": "https://draculatheme.com/",
+	"description": "Premium Dracula Theme. A dark theme for many editors, shells, and more.",
+	"publisher": "dracula-theme-pro",
+	"license": "MIT",
+	"scripts": {
+		"build": "node ./scripts/build.js",
+		"lint": "node ./scripts/lint.js",
+		"package": "vsce package -o dracula-pro.vsix",
+		"vscode:prepublish": "npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/zenorocha/visual-studio-code-pro.git"
+	},
+	"bugs": {
+		"url": "https://github.com/zenorocha/visual-studio-code-pro/issues"
+	},
+	"engines": {
+		"vscode": "^1.13.0"
+	},
+	"categories": [
+		"Themes"
+	],
+	"keywords": [
+		"dracula",
+		"dark",
+		"theme",
+		"color-theme"
+	],
+	"icon": "icon.png",
+	"galleryBanner": {
+		"color": "#3c4557",
+		"theme": "dark"
+	},
+	"contributes": {
+		"themes": [
+			{
+				"label": "Dracula Pro",
+				"uiTheme": "vs-dark",
+				"path": "./theme/dracula-pro.json"
+			},
+			{
+				"label": "Dracula Pro (Blade)",
+				"uiTheme": "vs-dark",
+				"path": "./theme/dracula-pro-blade.json"
+			},
+			{
+				"label": "Dracula Pro (Buffy)",
+				"uiTheme": "vs-dark",
+				"path": "./theme/dracula-pro-buffy.json"
+			},
+			{
+				"label": "Dracula Pro (Lincoln)",
+				"uiTheme": "vs-dark",
+				"path": "./theme/dracula-pro-lincoln.json"
+			},
+			{
+				"label": "Dracula Pro (Morbius)",
+				"uiTheme": "vs-dark",
+				"path": "./theme/dracula-pro-morbius.json"
+			},
+			{
+				"label": "Dracula Pro (Van Helsing)",
+				"uiTheme": "vs-dark",
+				"path": "./theme/dracula-pro-van-helsing.json"
+			}
+		]
+	},
+	"devDependencies": {
+		"js-yaml": "^3.13.1",
+		"prettier": "^1.19.1",
+		"tinycolor2": "^1.4.1",
+		"vsce": "^1.74.0"
+	},
+	"__metadata": {
+		"isApplicationScoped": false,
+		"installedTimestamp": 1746644387361,
+		"pinned": true,
+		"source": "vsix",
+		"size": 254151
+	}
+}
