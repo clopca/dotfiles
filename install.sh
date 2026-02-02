@@ -2,11 +2,12 @@
 
 # Bootstrap script for new Mac setup
 # Usage: ./install.sh
+#        ./install.sh --copy-only   # Only copy config files (e.g. after git pull)
 # Or run directly: curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/dotfiles/main/install.sh | bash
 
 set -e
 
-DOTFILES_DIR="$HOME/dev/github/dotfiles"
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dev/github/dotfiles}"
 GITHUB_REPO="clopca/dotfiles"
 
 # Colors for output
@@ -31,6 +32,54 @@ print_warning() {
 print_error() {
     echo -e "${RED}✗${NC} $1"
 }
+
+# Copy all config files from repo to home (used by full install and --copy-only)
+copy_config_files() {
+    backup_file() {
+        local file="$1"
+        if [[ -f "$file" && ! -L "$file" ]]; then
+            mv "$file" "${file}.backup.$(date +%Y%m%d%H%M%S)"
+            print_warning "Backed up existing $file"
+        fi
+    }
+    copy_file() {
+        local source="$1"
+        local target="$2"
+        backup_file "$target"
+        if [[ -L "$target" ]]; then
+            rm "$target"
+        fi
+        cp "$source" "$target"
+        print_success "Copied $source -> $target"
+    }
+
+    print_step "Copying config files..."
+
+    copy_file "$DOTFILES_DIR/shell/.zshrc" "$HOME/.zshrc"
+    copy_file "$DOTFILES_DIR/shell/.zprofile" "$HOME/.zprofile"
+    copy_file "$DOTFILES_DIR/shell/.zshenv" "$HOME/.zshenv"
+    copy_file "$DOTFILES_DIR/shell/.aliases" "$HOME/.aliases"
+    copy_file "$DOTFILES_DIR/shell/.p10k.zsh" "$HOME/.p10k.zsh"
+    copy_file "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+    copy_file "$DOTFILES_DIR/git/.gitignore_global" "$HOME/.gitignore_global"
+    mkdir -p "$HOME/.config/ghostty"
+    copy_file "$DOTFILES_DIR/config/ghostty/config" "$HOME/.config/ghostty/config"
+    if [[ -d "$HOME/Library/Application Support/Code/User" ]]; then
+        copy_file "$DOTFILES_DIR/config/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
+    fi
+}
+
+# --copy-only: just copy config files and exit (e.g. after git pull)
+if [[ "${1:-}" == "--copy-only" ]] || [[ "${1:-}" == "--sync" ]]; then
+    if [[ ! -d "$DOTFILES_DIR" ]]; then
+        print_error "Dotfiles directory not found: $DOTFILES_DIR"
+        exit 1
+    fi
+    copy_config_files
+    echo ""
+    print_success "Done. Run: source ~/.zshrc"
+    exit 0
+fi
 
 # =============================================================================
 # CHECK PREREQUISITES
@@ -164,50 +213,10 @@ else
 fi
 
 # =============================================================================
-# COPY CONFIGURATION FILES
+# COPY CONFIG FILES
 # =============================================================================
 
-print_step "Copying configuration files..."
-
-# Backup and copy file
-copy_file() {
-    local source="$1"
-    local target="$2"
-    
-    # Backup existing file if it exists and is not a symlink
-    if [[ -f "$target" && ! -L "$target" ]]; then
-        mv "$target" "${target}.backup.$(date +%Y%m%d%H%M%S)"
-        print_warning "Backed up existing $target"
-    fi
-    
-    # Remove symlink if exists
-    if [[ -L "$target" ]]; then
-        rm "$target"
-    fi
-    
-    cp "$source" "$target"
-    print_success "Copied $source -> $target"
-}
-
-# Shell configuration
-copy_file "$DOTFILES_DIR/shell/.zshrc" "$HOME/.zshrc"
-copy_file "$DOTFILES_DIR/shell/.zprofile" "$HOME/.zprofile"
-copy_file "$DOTFILES_DIR/shell/.zshenv" "$HOME/.zshenv"
-copy_file "$DOTFILES_DIR/shell/.aliases" "$HOME/.aliases"
-copy_file "$DOTFILES_DIR/shell/.p10k.zsh" "$HOME/.p10k.zsh"
-
-# Git configuration
-copy_file "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
-copy_file "$DOTFILES_DIR/git/.gitignore_global" "$HOME/.gitignore_global"
-
-# Ghostty configuration
-mkdir -p "$HOME/.config/ghostty"
-copy_file "$DOTFILES_DIR/config/ghostty/config" "$HOME/.config/ghostty/config"
-
-# VS Code settings (if VS Code is installed)
-if [[ -d "$HOME/Library/Application Support/Code/User" ]]; then
-    copy_file "$DOTFILES_DIR/config/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
-fi
+copy_config_files
 
 # Cursor settings (if Cursor is installed)
 if [[ -d "$HOME/Library/Application Support/Cursor/User" ]]; then
