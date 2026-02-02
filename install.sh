@@ -164,53 +164,49 @@ else
 fi
 
 # =============================================================================
-# CREATE SYMLINKS
+# COPY CONFIGURATION FILES
 # =============================================================================
 
-print_step "Creating symlinks..."
+print_step "Copying configuration files..."
 
-# Backup existing files
-backup_file() {
-    local file="$1"
-    if [[ -f "$file" && ! -L "$file" ]]; then
-        mv "$file" "${file}.backup.$(date +%Y%m%d%H%M%S)"
-        print_warning "Backed up existing $file"
-    fi
-}
-
-# Create symlink
-create_symlink() {
+# Backup and copy file
+copy_file() {
     local source="$1"
     local target="$2"
     
-    backup_file "$target"
+    # Backup existing file if it exists and is not a symlink
+    if [[ -f "$target" && ! -L "$target" ]]; then
+        mv "$target" "${target}.backup.$(date +%Y%m%d%H%M%S)"
+        print_warning "Backed up existing $target"
+    fi
     
+    # Remove symlink if exists
     if [[ -L "$target" ]]; then
         rm "$target"
     fi
     
-    ln -sf "$source" "$target"
-    print_success "Linked $target -> $source"
+    cp "$source" "$target"
+    print_success "Copied $source -> $target"
 }
 
 # Shell configuration
-create_symlink "$DOTFILES_DIR/shell/.zshrc" "$HOME/.zshrc"
-create_symlink "$DOTFILES_DIR/shell/.zprofile" "$HOME/.zprofile"
-create_symlink "$DOTFILES_DIR/shell/.zshenv" "$HOME/.zshenv"
-create_symlink "$DOTFILES_DIR/shell/.aliases" "$HOME/.aliases"
-create_symlink "$DOTFILES_DIR/shell/.p10k.zsh" "$HOME/.p10k.zsh"
+copy_file "$DOTFILES_DIR/shell/.zshrc" "$HOME/.zshrc"
+copy_file "$DOTFILES_DIR/shell/.zprofile" "$HOME/.zprofile"
+copy_file "$DOTFILES_DIR/shell/.zshenv" "$HOME/.zshenv"
+copy_file "$DOTFILES_DIR/shell/.aliases" "$HOME/.aliases"
+copy_file "$DOTFILES_DIR/shell/.p10k.zsh" "$HOME/.p10k.zsh"
 
 # Git configuration
-create_symlink "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
-create_symlink "$DOTFILES_DIR/git/.gitignore_global" "$HOME/.gitignore_global"
+copy_file "$DOTFILES_DIR/git/.gitconfig" "$HOME/.gitconfig"
+copy_file "$DOTFILES_DIR/git/.gitignore_global" "$HOME/.gitignore_global"
 
 # Ghostty configuration
 mkdir -p "$HOME/.config/ghostty"
-create_symlink "$DOTFILES_DIR/config/ghostty/config" "$HOME/.config/ghostty/config"
+copy_file "$DOTFILES_DIR/config/ghostty/config" "$HOME/.config/ghostty/config"
 
 # VS Code settings (if VS Code is installed)
 if [[ -d "$HOME/Library/Application Support/Code/User" ]]; then
-    create_symlink "$DOTFILES_DIR/config/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
+    copy_file "$DOTFILES_DIR/config/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 fi
 
 # =============================================================================
