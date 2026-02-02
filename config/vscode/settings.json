@@ -1,33 +1,8 @@
 {
-  // Editor settings
+  "amazonQ.telemetry": false,
   "editor.accessibilitySupport": "off",
-  "editor.fontSize": 14,
-  "editor.fontFamily": "Hack Nerd Font, Menlo, Monaco, 'Courier New', monospace",
-  "editor.formatOnSave": true,
-  "editor.minimap.enabled": false,
-  "editor.tabSize": 2,
-  "editor.wordWrap": "on",
-  
-  // Terminal settings
-  "terminal.integrated.fontSize": 14,
-  "terminal.integrated.fontFamily": "Hack Nerd Font",
-  
-  // Files settings
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  "files.exclude": {
-    "**/.git": true,
-    "**/.DS_Store": true,
-    "**/node_modules": true
+  "terminal.integrated.env.osx": {
+    "Q_NEW_SESSION": "1"
   },
-  
-  // Telemetry
-  "telemetry.telemetryLevel": "off",
-  
-  // Theme
-  "workbench.colorTheme": "Dracula Pro",
-  "workbench.iconTheme": "material-icon-theme",
-  
-  // Window
-  "window.newWindowDimensions": "inherit"
+  "window.newWindowProfile": "clopca"
 }

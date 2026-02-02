@@ -209,6 +209,12 @@ if [[ -d "$HOME/Library/Application Support/Code/User" ]]; then
     copy_file "$DOTFILES_DIR/config/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
 fi
 
+# Cursor settings (if Cursor is installed)
+if [[ -d "$HOME/Library/Application Support/Cursor/User" ]]; then
+    copy_file "$DOTFILES_DIR/config/cursor/settings.json" "$HOME/Library/Application Support/Cursor/User/settings.json"
+    copy_file "$DOTFILES_DIR/config/cursor/keybindings.json" "$HOME/Library/Application Support/Cursor/User/keybindings.json"
+fi
+
 # =============================================================================
 # SETUP SSH DIRECTORY
 # =============================================================================

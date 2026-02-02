@@ -1,0 +1,37 @@
+[
+    {
+      "key": "shift+cmd+i",
+      "command": "-aiInterface.new"
+    },
+    {
+      "key": "alt+o",
+      "command": "editor.emmet.action.balanceOut"
+    },
+    {
+      "key": "alt+i",
+      "command": "editor.emmet.action.balanceIn"
+    },
+    {
+      "key": "alt+a",
+      "command": "editor.emmet.action.wrapWithAbbreviation"
+    },
+    {
+      "key": "ctrl+space",
+      "command": "editor.action.triggerSuggest",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "ctrl+shift+space",
+      "command": "editor.action.triggerSuggest",
+      "when": "editorTextFocus"
+    },
+    {
+      "key": "cmd+i",
+      "command": "composerMode.agent"
+    },
+    {
+      "key": "cmd+l",
+      "command": "composerMode.chat"
+    }
+  ]
+  
