@@ -11,7 +11,7 @@ On a fresh Mac, run:
 xcode-select --install
 
 # Clone and run setup
-git clone https://github.com/YOUR_USERNAME/dotfiles.git ~/dotfiles
+git clone https://github.com/clopca/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
@@ -19,7 +19,7 @@ cd ~/dotfiles
 Or run directly (after pushing to GitHub):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/dotfiles/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/clopca/dotfiles/main/install.sh | bash
 ```
 
 ## What's Included

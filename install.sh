@@ -6,8 +6,8 @@
 
 set -e
 
-DOTFILES_DIR="$HOME/dotfiles"
-GITHUB_REPO="YOUR_USERNAME/dotfiles"
+DOTFILES_DIR="$HOME/dev/github/dotfiles"
+GITHUB_REPO="clopca/dotfiles"
 
 # Colors for output
 RED='\033[0;31m'
