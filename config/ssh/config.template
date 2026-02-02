@@ -1,0 +1,43 @@
+# SSH Configuration Template
+# This file contains the structure of your SSH config (without sensitive data)
+# Copy to ~/.ssh/config and customize for your needs
+
+# =============================================================================
+# 1PASSWORD SSH AGENT
+# =============================================================================
+# Use 1Password as your SSH agent for secure key management
+# This allows you to store SSH keys in 1Password and use them seamlessly
+
+Host *
+  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+# =============================================================================
+# GITHUB
+# =============================================================================
+Host github.com
+  HostName github.com
+  User git
+  # IdentityFile is managed by 1Password
+
+# =============================================================================
+# AWS GITLAB
+# =============================================================================
+Host ssh.gitlab.aws.dev
+  User git
+  IdentityFile ~/.ssh/id_ecdsa
+  CertificateFile ~/.ssh/id_ecdsa-cert.pub
+  IdentitiesOnly yes
+  ProxyCommand none
+  ProxyJump none
+  UseKeychain yes
+  AddKeysToAgent yes
+
+# =============================================================================
+# CUSTOM HOSTS (add your own)
+# =============================================================================
+# Example:
+# Host myserver
+#   HostName server.example.com
+#   User myuser
+#   IdentityFile ~/.ssh/id_myserver
+#   Port 22

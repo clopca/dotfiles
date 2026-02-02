@@ -1,0 +1,80 @@
+# Custom aliases
+# Source this from your .zshrc: [[ -f ~/.aliases ]] && source ~/.aliases
+
+# =============================================================================
+# NAVIGATION
+# =============================================================================
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ~="cd ~"
+
+# =============================================================================
+# LS SHORTCUTS
+# =============================================================================
+alias ll="ls -la"
+alias la="ls -la"
+alias l="ls -la"
+
+# =============================================================================
+# GIT SHORTCUTS
+# =============================================================================
+alias g="git"
+alias gs="git status"
+alias gp="git push"
+alias gl="git pull"
+alias gc="git commit"
+alias gca="git commit -a"
+alias gco="git checkout"
+alias gb="git branch"
+alias gd="git diff"
+alias glog="git log --oneline --decorate --graph"
+
+# =============================================================================
+# DOCKER SHORTCUTS
+# =============================================================================
+alias d="docker"
+alias dc="docker compose"
+alias dps="docker ps"
+alias di="docker images"
+
+# =============================================================================
+# KUBERNETES SHORTCUTS
+# =============================================================================
+alias k="kubectl"
+alias kgp="kubectl get pods"
+alias kgs="kubectl get services"
+alias kgd="kubectl get deployments"
+alias kl="kubectl logs"
+alias kex="kubectl exec -it"
+
+# =============================================================================
+# TERRAFORM SHORTCUTS
+# =============================================================================
+alias tf="terraform"
+alias tfi="terraform init"
+alias tfp="terraform plan"
+alias tfa="terraform apply"
+
+# =============================================================================
+# UTILITIES
+# =============================================================================
+alias c="clear"
+alias h="history"
+alias reload="source ~/.zshrc"
+alias zshconfig="code ~/.zshrc"
+alias hosts="sudo code /etc/hosts"
+
+# Show/hide hidden files in Finder
+alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# IP addresses
+alias ip="curl -s ifconfig.me"
+alias localip="ipconfig getifaddr en0"
+
+# =============================================================================
+# DEVELOPMENT
+# =============================================================================
+alias serve="python -m http.server 8000"
+alias json="python -m json.tool"

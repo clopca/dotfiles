@@ -1,0 +1,20 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Backup files
+*.backup.*
+*.bak
+
+# Local configuration (machine-specific, not tracked)
+.zshrc.local
+
+# Secrets (never commit)
+*.pem
+*.key
+secrets/
+.env
+.env.local

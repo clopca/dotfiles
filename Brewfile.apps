@@ -1,0 +1,48 @@
+# Additional Mac Applications (install manually or via cask if available)
+# These are common apps that may need manual installation or are from App Store
+
+# Development
+cask "visual-studio-code"           # VS Code
+cask "cursor"                       # AI-powered code editor
+cask "iterm2"                       # Terminal emulator
+cask "docker"                       # Docker Desktop
+cask "github-desktop"               # GitHub Desktop app
+cask "sublime-text"                 # Sublime Text editor
+
+# Browsers
+cask "google-chrome"                # Google Chrome
+cask "firefox"                      # Firefox
+cask "arc"                          # Arc Browser
+
+# Productivity
+cask "raycast"                      # Spotlight replacement
+cask "rectangle"                    # Window management
+cask "obsidian"                     # Note-taking
+cask "notion"                       # Workspace
+cask "linear-linear"                # Project management
+cask "things"                       # Task manager
+cask "deepl"                        # Translation
+
+# Communication
+cask "slack"                        # Team communication
+cask "discord"                      # Chat
+cask "zoom"                         # Video conferencing
+cask "microsoft-teams"              # Microsoft Teams
+
+# Media
+cask "spotify"                      # Music streaming
+
+# Utilities
+cask "1password"                    # Password manager
+cask "bartender"                    # Menu bar manager
+cask "klack"                        # Keyboard sounds
+cask "displaylink"                  # External display support
+
+# AI Tools
+cask "chatgpt"                      # ChatGPT desktop
+cask "claude"                       # Claude desktop
+
+# AWS/Cloud specific (may require special installation)
+# - Amazon Chime
+# - Amazon Q
+# - AWS CLI (brew install awscli)
