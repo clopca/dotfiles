@@ -1,17 +1,2 @@
-# Ghostty Terminal Configuration
-# https://ghostty.org/docs/config
-
 theme = GitHub Dark High Contrast
 keybind = shift+enter=text:\n
-
-# Font settings
-# font-family = Hack Nerd Font
-# font-size = 14
-
-# Window settings
-# window-padding-x = 10
-# window-padding-y = 10
-
-# Cursor settings
-# cursor-style = block
-# cursor-blink = true

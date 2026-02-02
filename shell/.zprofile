@@ -1,5 +1,6 @@
-# ~/.zprofile - Login shell configuration
-# Executed for login shells (before .zshrc)
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zprofile.pre.zsh"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Homebrew environment (Apple Silicon)
-eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zprofile.post.zsh"
