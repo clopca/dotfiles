@@ -279,6 +279,30 @@ else
 fi
 
 # =============================================================================
+# INSTALL FONTS
+# =============================================================================
+
+print_step "Installing fonts..."
+
+mkdir -p "$HOME/Library/Fonts"
+if [[ -d "$DOTFILES_DIR/fonts" ]]; then
+    cp "$DOTFILES_DIR/fonts/"*.ttf "$HOME/Library/Fonts/" 2>/dev/null || true
+    print_success "Fonts installed (Hack Nerd Font, MesloLGS NF)"
+fi
+
+# =============================================================================
+# GITHUB CLI CONFIGURATION
+# =============================================================================
+
+print_step "Configuring GitHub CLI..."
+
+mkdir -p "$HOME/.config/gh"
+if [[ -f "$DOTFILES_DIR/config/gh/hosts.yml" ]]; then
+    cp "$DOTFILES_DIR/config/gh/hosts.yml" "$HOME/.config/gh/hosts.yml"
+    print_success "GitHub CLI configured (SSH protocol)"
+fi
+
+# =============================================================================
 # INSTALL NODE VERSION MANAGER
 # =============================================================================
 
