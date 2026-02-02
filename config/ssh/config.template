@@ -1,43 +1,68 @@
-# SSH Configuration Template
-# This file contains the structure of your SSH config (without sensitive data)
-# Copy to ~/.ssh/config and customize for your needs
+# =============================================================================
+# SSH CONFIGURATION TEMPLATE
+# =============================================================================
+# Location: ~/.ssh/config
+# Copy this template and customize for your needs
 
 # =============================================================================
-# 1PASSWORD SSH AGENT
+# 1PASSWORD SSH AGENT (GLOBAL)
 # =============================================================================
 # Use 1Password as your SSH agent for secure key management
-# This allows you to store SSH keys in 1Password and use them seamlessly
+# Keys are stored in 1Password and used seamlessly across devices
 
 Host *
-  IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 # =============================================================================
 # GITHUB
 # =============================================================================
 Host github.com
-  HostName github.com
-  User git
-  # IdentityFile is managed by 1Password
+	HostName github.com
+	User git
+	AddKeysToAgent yes
+	UseKeychain yes
+	# Key managed by 1Password - add your key name below
+	# IdentityFile ~/.ssh/id_ed25519
 
 # =============================================================================
-# AWS GITLAB
+# AWS CODECOMMIT (Optional)
+# =============================================================================
+# Host git-codecommit.*.amazonaws.com
+#   User YOUR_AWS_ACCESS_KEY_ID
+#   IdentityFile ~/.ssh/codecommit_rsa
+
+# =============================================================================
+# AWS GITLAB (Optional)
 # =============================================================================
 Host ssh.gitlab.aws.dev
-  User git
-  IdentityFile ~/.ssh/id_ecdsa
-  CertificateFile ~/.ssh/id_ecdsa-cert.pub
-  IdentitiesOnly yes
-  ProxyCommand none
-  ProxyJump none
-  UseKeychain yes
-  AddKeysToAgent yes
+	User git
+	IdentityFile ~/.ssh/id_ecdsa
+	CertificateFile ~/.ssh/id_ecdsa-cert.pub
+	IdentitiesOnly yes
+	ProxyCommand none
+	ProxyJump none
+	UseKeychain yes
+	AddKeysToAgent yes
 
 # =============================================================================
-# CUSTOM HOSTS (add your own)
+# CUSTOM HOSTS
 # =============================================================================
-# Example:
+# Add your own hosts below. Examples:
+
+# Personal server
 # Host myserver
 #   HostName server.example.com
 #   User myuser
 #   IdentityFile ~/.ssh/id_myserver
 #   Port 22
+
+# Jump host example
+# Host production
+#   HostName 10.0.0.1
+#   User admin
+#   ProxyJump bastion
+
+# Host bastion
+#   HostName bastion.example.com
+#   User admin
+#   IdentityFile ~/.ssh/id_bastion

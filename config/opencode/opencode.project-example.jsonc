@@ -1,0 +1,46 @@
+{
+	"$schema": "https://opencode.ai/config.json",
+
+	// ==========================================================================
+	// PROJECT-LEVEL OPENCODE CONFIGURATION
+	// ==========================================================================
+	// This file should be placed in: .opencode/opencode.jsonc
+	// It overrides global settings for this specific project
+
+	// Model selection (optional - inherits from global if not set)
+	// "model": "amazon-bedrock/anthropic.claude-sonnet-4-20250514-v1:0",
+
+	// ==========================================================================
+	// PROJECT-SPECIFIC MCP SERVERS
+	// ==========================================================================
+	"mcp": {
+		// Example: Playwright for E2E testing
+		"playwright": {
+			"type": "local",
+			"command": ["npx", "-y", "@anthropic-ai/mcp-server-playwright"],
+			"enabled": true
+		},
+		// Example: Supabase integration
+		"supabase": {
+			"type": "local",
+			"command": ["npx", "-y", "@supabase/mcp-server-supabase"],
+			"env": {
+				"SUPABASE_URL": "${SUPABASE_URL}",
+				"SUPABASE_SERVICE_ROLE_KEY": "${SUPABASE_SERVICE_ROLE_KEY}"
+			},
+			"enabled": false
+		},
+		// Example: Memory/knowledge base
+		"memory": {
+			"type": "local",
+			"command": ["npx", "-y", "@modelcontextprotocol/server-memory"],
+			"enabled": false
+		}
+	},
+
+	// ==========================================================================
+	// PROJECT INSTRUCTIONS (SYSTEM PROMPT)
+	// ==========================================================================
+	// Add project-specific instructions for the AI
+	// "instructions": "This is a Next.js 14 project using TypeScript and Tailwind CSS."
+}

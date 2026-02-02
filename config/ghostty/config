@@ -1,2 +1,24 @@
-theme = GitHub Dark High Contrast
+# =============================================================================
+# GHOSTTY TERMINAL CONFIGURATION
+# =============================================================================
+# Location: ~/.config/ghostty/config
+# Documentation: https://ghostty.org/docs
+
+# Theme
+theme = GitHub-Dark-High-Contrast
+
+# Keybindings
 keybind = shift+enter=text:\n
+
+# Font (optional - uses Hack Nerd Font from dotfiles)
+# font-family = "Hack Nerd Font"
+# font-size = 14
+
+# Window
+# window-padding-x = 10
+# window-padding-y = 10
+# macos-titlebar-style = hidden
+
+# Cursor
+# cursor-style = block
+# cursor-blink = false

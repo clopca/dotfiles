@@ -1,3 +1,9 @@
+# =============================================================================
+# GIT CONFIGURATION
+# =============================================================================
+# This is a template - update user.name, user.email, and user.signingkey
+# for each machine
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
@@ -6,18 +12,51 @@
 
 [user]
 	name = Cristobal
-	email = clopca@amazon.es
+	email = cristobal.callejon@gmail.com
+	# SSH signing key from 1Password (update with your key)
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGg4EE0tDOJmkHQi6wWQZqm4wAgzh4sqyqQBnNZBinLv
 
 [gpg]
 	format = ssh
+
+[gpg "ssh"]
+	# 1Password SSH signing agent
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+
 [commit]
 	gpgsign = true
 
-[includeIf "gitdir:/Users/clopca/dev/github/**"]
-  path = /Users/clopca/dev/github/.gitconfig
-
 [core]
-	pager = 
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	# Disable pager for cleaner output in scripts
+	pager = cat
+	excludesfile = ~/.gitignore_global
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	autoSetupRemote = true
+
+[alias]
+	# Common shortcuts
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	lg = log --oneline --graph --decorate
+	last = log -1 HEAD
+	unstage = reset HEAD --
+
+# =============================================================================
+# CONDITIONAL INCLUDES
+# =============================================================================
+# Personal projects (GitHub)
+[includeIf "gitdir:~/dev/github/**"]
+	path = ~/dev/github/.gitconfig
+
+# Work projects (if different email/signing key needed)
+# [includeIf "gitdir:~/dev/work/**"]
+# 	path = ~/dev/work/.gitconfig

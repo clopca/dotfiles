@@ -332,6 +332,43 @@ fi
 # fi
 
 # =============================================================================
+# SETUP OPENCODE CONFIGURATION
+# =============================================================================
+
+print_step "Setting up OpenCode configuration..."
+
+mkdir -p "$HOME/.config/opencode"
+
+if [[ -f "$DOTFILES_DIR/config/opencode/opencode.jsonc" ]]; then
+    if [[ ! -f "$HOME/.config/opencode/opencode.jsonc" ]]; then
+        copy_file "$DOTFILES_DIR/config/opencode/opencode.jsonc" "$HOME/.config/opencode/opencode.jsonc"
+        print_success "OpenCode global config installed"
+    else
+        print_warning "OpenCode config already exists - not overwriting"
+    fi
+fi
+
+if [[ -f "$DOTFILES_DIR/config/opencode/package.json" ]]; then
+    if [[ ! -f "$HOME/.config/opencode/package.json" ]]; then
+        copy_file "$DOTFILES_DIR/config/opencode/package.json" "$HOME/.config/opencode/package.json"
+        print_success "OpenCode package.json installed"
+    fi
+fi
+
+# Install OpenCode MCP dependencies
+if [[ -f "$HOME/.config/opencode/package.json" ]]; then
+    print_step "Installing OpenCode MCP dependencies..."
+    cd "$HOME/.config/opencode"
+    if command -v bun &> /dev/null; then
+        bun install 2>/dev/null || true
+    elif command -v npm &> /dev/null; then
+        npm install 2>/dev/null || true
+    fi
+    cd "$DOTFILES_DIR"
+    print_success "OpenCode MCP dependencies installed"
+fi
+
+# =============================================================================
 # CONFIGURE MACOS DEFAULTS
 # =============================================================================
 
@@ -377,4 +414,6 @@ echo "  2. Configure Powerlevel10k: p10k configure"
 echo "  3. Setup 1Password SSH agent for key management"
 echo "  4. Update ~/.gitconfig with your user info"
 echo "  5. Add machine-specific config to ~/.zshrc.local"
+echo "  6. Install OpenCode: curl -fsSL https://opencode.ai/install | bash"
+echo "  7. Configure OpenCode: opencode auth login"
 echo ""
