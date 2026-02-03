@@ -219,9 +219,20 @@ fi
 copy_config_files
 
 # Cursor settings (if Cursor is installed)
+# Note: Cursor may use profiles - copy to both locations
 if [[ -d "$HOME/Library/Application Support/Cursor/User" ]]; then
+    # Copy to main User folder
     copy_file "$DOTFILES_DIR/config/cursor/settings.json" "$HOME/Library/Application Support/Cursor/User/settings.json"
     copy_file "$DOTFILES_DIR/config/cursor/keybindings.json" "$HOME/Library/Application Support/Cursor/User/keybindings.json"
+    
+    # Also copy to any existing profiles
+    for profile_dir in "$HOME/Library/Application Support/Cursor/User/profiles"/*; do
+        if [[ -d "$profile_dir" ]]; then
+            copy_file "$DOTFILES_DIR/config/cursor/settings.json" "$profile_dir/settings.json"
+            copy_file "$DOTFILES_DIR/config/cursor/keybindings.json" "$profile_dir/keybindings.json"
+            print_success "Copied settings to Cursor profile: $(basename "$profile_dir")"
+        fi
+    done
 fi
 
 # =============================================================================
