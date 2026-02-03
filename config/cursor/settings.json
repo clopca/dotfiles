@@ -12,19 +12,27 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-  "amazonQ.suppressPrompts": {
-    "amazonQChatDisclaimer": true,
-    "amazonQChatPairProgramming": true
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
-  "amazonQ.telemetry": false,
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
   "cSpell.language": "en,es-ES",
   "cSpell.userWords": [
     "AEAT",
     "affiliateds",
     "aprobacion",
+    "awsx",
+    "bunx",
     "cedula",
+    "Chunker",
+    "clasicas",
     "clopca",
     "cloudflare",
     "codigo",
@@ -34,10 +42,14 @@
     "crediteame",
     "cristobal",
     "dana",
+    "Davivienda",
     "declaracion",
+    "Dicebear",
     "direccion",
     "documentacion",
     "Documentacion",
+    "docxtemplater",
+    "Docxtemplater",
     "Electronico",
     "Ertes",
     "ERTES",
@@ -49,15 +61,22 @@
     "informacion",
     "investtup",
     "Investtup",
+    "linkedin",
     "nativewind",
     "neondatabase",
     "neverthrow",
     "nextjs",
     "Objectv",
     "Oidc",
+    "openai",
     "openauth",
     "openauthjs",
+    "opensearch",
+    "pizzip",
+    "placemark",
+    "placemarks",
     "postgres",
+    "posthog",
     "POSTHOG",
     "presigner",
     "Pressable",
@@ -65,12 +84,24 @@
     "pulumi",
     "pulumiverse",
     "razon",
+    "resturant",
     "sonner",
     "Sonner",
+    "stagewise",
+    "Stagewise",
+    "Subcategoría",
+    "subcategorías",
+    "Subcategorías",
+    "tcea",
+    "tiktok",
+    "ultracite",
     "unenv",
+    "Unioffice",
     "unsplash",
+    "uuidv",
     "valibot",
-    "verificator"
+    "verificator",
+    "whatsapp"
   ],
   "codeviz.analyticsEnabled": true,
   "console-ninja.featureSet": "Community",
@@ -78,24 +109,15 @@
   "cursor.chat.ghostTextAtSymbols": true,
   "cursor.chat.showSuggestedFiles": true,
   "cursor.chat.smoothStreaming": true,
-  "cursor.composer.shouldAllowCustomModes": true,
-  "cursor.composer.shouldChimeAfterChatFinishes": true,
-  "cursor.cpp.disabledLanguages": [
-    "plaintext",
-    "scminput"
-  ],
+  "cursor.cpp.disabledLanguages": ["plaintext", "scminput"],
   "cursor.cpp.enablePartialAccepts": true,
-  "diffEditor.ignoreTrimWhitespace": false,
   "editor.accessibilitySupport": "on",
-  "editor.defaultFormatter": "biomejs.biome",
   "editor.fontFamily": "Fira Code",
   "editor.fontLigatures": true,
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.linkedEditing": true,
-  "editor.semanticTokenColorCustomizations": {},
   "editor.tabSize": 2,
-  "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmPasteNative": false,
@@ -119,15 +141,6 @@
   "javascript.inlayHints.functionLikeReturnTypes.enabled": true,
   "javascript.inlayHints.parameterNames.enabled": "all",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "kilo-code.allowedCommands": [
-    "npm test",
-    "npm install",
-    "tsc",
-    "git log",
-    "git diff",
-    "git show"
-  ],
-  "material-icon-theme.folders.theme": "specific",
   "redhat.telemetry.enabled": false,
   "snyk.advanced.cliPath": "/Users/clopca/Library/Application Support/snyk-ls/snyk-macos",
   "snyk.yesWelcomeNotification": false,
@@ -161,7 +174,6 @@
     "Q_NEW_SESSION": "1"
   },
   "terminal.integrated.fontFamily": "'MesloLGS NF'",
-  "terminal.integrated.fontLigatures": true,
   "typescript.inlayHints.parameterNames.enabled": "all",
   "typescript.inlayHints.parameterTypes.enabled": true,
   "typescript.inlayHints.propertyDeclarationTypes.enabled": true,
@@ -174,11 +186,8 @@
   "window.zoomLevel": 1,
   "workbench.activityBar.location": "top",
   "workbench.activityBar.orientation": "vertical",
-  "workbench.colorTheme": "Dracula Pro (Van Helsing)",
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.settings.applyToAllProfiles": [
-    "editor.formatOnSave"
-  ],
+  "workbench.settings.applyToAllProfiles": ["editor.formatOnSave"],
   "yaml.customTags": [
     "!And",
     "!And sequence",
@@ -208,18 +217,38 @@
     "!Split",
     "!Split sequence"
   ],
-  "amp.url": "https://ampcode.com/",
-  "editor.wordBasedSuggestions": "off",
-  "amp.tab.enabled": true,
-  "amp.mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@playwright/mcp@latest",
-        "--headless",
-        "--isolated"
-      ]
-    }
-  }
+  "material-icon-theme.folders.theme": "specific",
+  "editor.semanticTokenColorCustomizations": {},
+  "workbench.colorTheme": "Dracula Pro (Van Helsing)",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "terminal.integrated.fontLigatures": true,
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "diffEditor.maxComputationTime": 0,
+  "cursor.composer.shouldAllowCustomModes": true,
+  "cursor.composer.cmdPFilePicker2": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "kilo-code.allowedCommands": [
+    "git log",
+    "git diff",
+    "git show",
+    "npm test",
+    "npm install",
+    "tsc"
+  ],
+  "kilo-code.deniedCommands": [],
+  "notebook.defaultFormatter": "dbaeumer.vscode-eslint",
+  "explorer.compactFolders": false,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "claude-code.selectedModel": "default",
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "cursor.composer.usageSummaryDisplay": "always",
+  "githubPullRequests.pullBranch": "never"
 }
