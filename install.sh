@@ -219,20 +219,20 @@ fi
 copy_config_files
 
 # Cursor settings (if Cursor is installed)
-# Note: Cursor may use profiles - copy to both locations
+# Cursor has layered settings:
+#   1. Base user settings (references profile)
+#   2. Profile settings (actual configuration)
 if [[ -d "$HOME/Library/Application Support/Cursor/User" ]]; then
-    # Copy to main User folder
+    # Copy base user settings (minimal, references profile)
     copy_file "$DOTFILES_DIR/config/cursor/settings.json" "$HOME/Library/Application Support/Cursor/User/settings.json"
     copy_file "$DOTFILES_DIR/config/cursor/keybindings.json" "$HOME/Library/Application Support/Cursor/User/keybindings.json"
     
-    # Also copy to any existing profiles
-    for profile_dir in "$HOME/Library/Application Support/Cursor/User/profiles"/*; do
-        if [[ -d "$profile_dir" ]]; then
-            copy_file "$DOTFILES_DIR/config/cursor/settings.json" "$profile_dir/settings.json"
-            copy_file "$DOTFILES_DIR/config/cursor/keybindings.json" "$profile_dir/keybindings.json"
-            print_success "Copied settings to Cursor profile: $(basename "$profile_dir")"
-        fi
-    done
+    # Create profile directory and copy full settings
+    CURSOR_PROFILE_DIR="$HOME/Library/Application Support/Cursor/User/profiles/clopca"
+    mkdir -p "$CURSOR_PROFILE_DIR"
+    copy_file "$DOTFILES_DIR/config/cursor/profiles/settings.json" "$CURSOR_PROFILE_DIR/settings.json"
+    copy_file "$DOTFILES_DIR/config/cursor/keybindings.json" "$CURSOR_PROFILE_DIR/keybindings.json"
+    print_success "Created Cursor profile: clopca"
 fi
 
 # =============================================================================
