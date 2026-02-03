@@ -1,48 +1,104 @@
-# Additional Mac Applications (install manually or via cask if available)
-# These are common apps that may need manual installation or are from App Store
+# =============================================================================
+# OPTIONAL DESKTOP APPLICATIONS
+# =============================================================================
+# Install with: brew bundle --file=Brewfile.apps
+# Some apps may require manual installation from App Store or vendor website
 
-# Development
+# =============================================================================
+# DEVELOPMENT - EDITORS & TOOLS
+# =============================================================================
 cask "visual-studio-code"           # VS Code
 cask "cursor"                       # AI-powered code editor
+cask "windsurf"                     # Codeium AI editor
+cask "sublime-text"                 # Fast text editor
 cask "iterm2"                       # Terminal emulator
+cask "warp"                         # AI-powered terminal
 cask "docker"                       # Docker Desktop
-cask "github-desktop"               # GitHub Desktop app
-cask "sublime-text"                 # Sublime Text editor
+cask "github"                       # GitHub Desktop app
+cask "figma"                        # Design tool
 
-# Browsers
+# =============================================================================
+# BROWSERS
+# =============================================================================
 cask "google-chrome"                # Google Chrome
 cask "firefox"                      # Firefox
 cask "arc"                          # Arc Browser
 
-# Productivity
-cask "raycast"                      # Spotlight replacement
-cask "rectangle"                    # Window management
-cask "obsidian"                     # Note-taking
-cask "notion"                       # Workspace
+# =============================================================================
+# PRODUCTIVITY
+# =============================================================================
+cask "raycast"                      # Spotlight replacement (highly recommended)
+cask "magnet"                       # Window management
+cask "obsidian"                     # Note-taking / knowledge base
+cask "notion"                       # Workspace / docs
 cask "linear-linear"                # Project management
 cask "things"                       # Task manager
 cask "deepl"                        # Translation
+cask "granola"                      # AI meeting notes
 
-# Communication
+# =============================================================================
+# COMMUNICATION
+# =============================================================================
 cask "slack"                        # Team communication
-cask "discord"                      # Chat
+cask "discord"                      # Chat / communities
 cask "zoom"                         # Video conferencing
 cask "microsoft-teams"              # Microsoft Teams
+cask "telegram"                     # Messaging
+cask "whatsapp"                     # Messaging
 
-# Media
+# =============================================================================
+# MEDIA
+# =============================================================================
 cask "spotify"                      # Music streaming
+cask "vlc"                          # Media player
+cask "obs"                          # Screen recording / streaming
+cask "gimp"                         # Image editing
 
-# Utilities
-cask "1password"                    # Password manager
-cask "bartender"                    # Menu bar manager
-cask "klack"                        # Keyboard sounds
-cask "displaylink"                  # External display support
+# =============================================================================
+# UTILITIES - MENU BAR & SYSTEM
+# =============================================================================
+cask "1password"                    # Password manager (essential)
+cask "bartender"                    # Menu bar manager (Bartender 6)
+cask "istat-menus"                  # System monitor in menu bar
+cask "klack"                        # Mechanical keyboard sounds
 
-# AI Tools
+# =============================================================================
+# AI TOOLS
+# =============================================================================
 cask "chatgpt"                      # ChatGPT desktop
 cask "claude"                       # Claude desktop
+cask "ollama"                       # Local LLM runner
+cask "macwhisper"                   # Speech-to-text
 
-# AWS/Cloud specific (may require special installation)
-# - Amazon Chime
-# - Amazon Q
-# - AWS CLI (brew install awscli)
+# =============================================================================
+# CLOUD & VPN
+# =============================================================================
+cask "nordvpn"                      # VPN client
+
+# =============================================================================
+# MICROSOFT OFFICE (if needed)
+# =============================================================================
+# cask "microsoft-office"           # Full Office suite
+# Or individual apps:
+# cask "microsoft-word"
+# cask "microsoft-excel"
+# cask "microsoft-powerpoint"
+# cask "microsoft-outlook"
+# cask "microsoft-onenote"
+# cask "onedrive"
+
+# =============================================================================
+# APP STORE APPS (install manually)
+# =============================================================================
+# - Xcode (App Store)
+# - Keynote, Numbers, Pages (App Store)
+# - Brain.fm (App Store)
+# - Things 3 (App Store - mas install 904280696)
+
+# =============================================================================
+# VENDOR-SPECIFIC (manual install)
+# =============================================================================
+# - Antigravity (vendor website)
+# - Kiro CLI (Amazon internal)
+# - OpenCode desktop (opencode.ai)
+# - Ledger Live (ledger.com)
