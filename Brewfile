@@ -83,6 +83,7 @@ cask "font-hack-nerd-font"          # Nerd Font for terminal
 cask "alt-tab"                      # Windows-like alt-tab
 cask "hiddenbar"                    # Menu bar icon manager
 cask "stats"                        # System monitor in menu bar
+cask "tailscale"                    # Mesh VPN for remote access
 
 # =============================================================================
 # CASK APPLICATIONS - DEVELOPMENT (Optional)

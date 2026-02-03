@@ -321,6 +321,92 @@ aws configure sso
 export AWS_REGION="eu-west-1"
 ```
 
+## Remote Development Setup
+
+Use your Mac Mini as a remote dev server accessible from your MacBook Pro (or anywhere).
+
+### 1. Enable Remote Access on Mac Mini
+
+```bash
+# Enable SSH (Remote Login)
+sudo systemsetup -setremotelogin on
+```
+
+Or via GUI: **System Settings → General → Sharing → Remote Login → Enable**
+
+For Screen Sharing: **System Settings → General → Sharing → Screen Sharing → Enable**
+
+### 2. Install Tailscale (Both Machines)
+
+Tailscale creates a secure mesh VPN - your devices always see each other, anywhere.
+
+```bash
+# Install via Homebrew (already in Brewfile)
+brew install --cask tailscale
+
+# Open Tailscale and sign in with same account on both machines
+```
+
+After setup, your Mac Mini is accessible via Tailscale hostname (e.g., `clopca-m4pro`).
+
+### 3. Connect from MacBook Pro
+
+#### SSH Access
+```bash
+# Local network
+ssh clopca@clopca-M4Pro.local
+
+# Via Tailscale (from anywhere)
+ssh clopca@clopca-m4pro
+```
+
+#### Cursor/VS Code Remote Development
+1. Install "Remote - SSH" extension
+2. `Cmd+Shift+P` → "Remote-SSH: Connect to Host"
+3. Add host: `clopca@clopca-m4pro` (Tailscale) or `clopca@clopca-M4Pro.local` (local)
+4. Full IDE experience with code running on Mac Mini
+
+#### Screen Sharing (Full Desktop)
+```bash
+# Local network
+open vnc://clopca-M4Pro.local
+
+# Via Tailscale (from anywhere)
+open vnc://clopca-m4pro
+```
+
+Or: **Finder → Go → Connect to Server** → enter VNC URL
+
+### 4. Remote Access Methods Summary
+
+| Method | Local Network | From Anywhere | GUI | Use Case |
+|--------|--------------|---------------|-----|----------|
+| SSH | `clopca-M4Pro.local` | Via Tailscale | No | Terminal, scripts |
+| Cursor Remote SSH | `clopca-M4Pro.local` | Via Tailscale | Editor only | Development |
+| Screen Sharing | `vnc://...local` | Via Tailscale | Full desktop | GUI apps, debugging |
+| OpenCode | Works over SSH | Via Tailscale | TUI | AI coding |
+
+### 5. Recommended Workflow
+
+1. **Daily development:** Cursor Remote SSH (lightweight, fast)
+2. **Need a browser/GUI:** Screen Sharing via Tailscale
+3. **Quick terminal task:** SSH directly
+
+### 6. Tips
+
+**Passwordless SSH:** If using 1Password SSH agent on both machines with same account, authentication is automatic.
+
+**Keep Mac Mini awake:**
+```bash
+# Prevent sleep (run on Mac Mini)
+sudo pmset -a sleep 0
+sudo pmset -a disksleep 0
+```
+
+Or: **System Settings → Energy → Prevent automatic sleeping**
+
+**Tailscale Exit Node:** You can route all MacBook traffic through Mac Mini if needed (useful for accessing home network resources).
+
 ## Updating
 
 Pull the latest changes and re-run install:
