@@ -101,6 +101,65 @@ Location: `~/dev/github/`
 | `pizza-chat` | Chat application |
 | `sst-data-pipeline` | SST data pipelines |
 
+## Cursor / VS Code Configuration
+
+### Settings Location
+
+The install script copies settings to:
+
+```
+~/Library/Application Support/Cursor/User/settings.json
+~/Library/Application Support/Code/User/settings.json
+```
+
+### What's Configured
+
+| Setting | Value |
+|---------|-------|
+| **Theme** | Dracula Pro (Van Helsing) |
+| **Editor Font** | Fira Code (with ligatures) |
+| **Terminal Font** | MesloLGS NF |
+| **Default Formatter** | Biome (JS/TS/JSON) |
+| **Tab Size** | 2 spaces |
+| **Format on Save** | Enabled |
+| **Icon Theme** | Material Icon Theme |
+
+### Language-Specific Formatters
+
+| Language | Formatter |
+|----------|-----------|
+| TypeScript, JavaScript, JSON, JSONC | Biome |
+| YAML, Docker Compose, GitHub Actions | Red Hat YAML |
+| Python | Format on type enabled |
+
+### File Nesting
+
+`package.json` nests related files:
+- `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`, `bun.lockb`
+- `tsconfig.json`, `next.config.mjs`, `tailwind.config.ts`
+- `.gitignore`, `.eslintrc.json`, `.prettierrc`
+
+### Extensions
+
+Extensions are listed in `config/cursor/extensions.txt` and installed automatically:
+- Biome, Tailwind CSS, React snippets
+- Terraform, Python, Rainbow CSV
+- Material Icon Theme, Dracula Pro
+
+### Customizing
+
+Edit `config/cursor/settings.json` then re-run:
+
+```bash
+./install.sh
+```
+
+Or manually copy:
+
+```bash
+cp config/cursor/settings.json ~/Library/Application\ Support/Cursor/User/
+```
+
 ## OpenCode Configuration
 
 OpenCode is configured at multiple levels:
