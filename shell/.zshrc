@@ -103,6 +103,42 @@ export PATH="$HOME/.console-ninja/.bin:$PATH"           # Console Ninja
 export AWS_REGION="eu-west-1"
 export AWS_PAGER=""
 
+# AWS SSO shortcuts — login + set profile in one command
+awslogin() {
+  local profile="$1"
+  if [[ -z "$profile" ]]; then
+    echo "Usage: awslogin <profile>"
+    return 1
+  fi
+  local session=$(aws configure get sso_session --profile "$profile" 2>/dev/null)
+  if [[ -z "$session" ]]; then
+    echo "Profile '$profile' not found or has no sso_session"
+    return 1
+  fi
+  aws sso login --sso-session "$session" && export AWS_PROFILE="$profile"
+  echo "Logged in and AWS_PROFILE set to: $profile"
+}
+
+# Just switch profile (no login, assumes already authenticated)
+awsuse() {
+  local profile="$1"
+  if [[ -z "$profile" ]]; then
+    echo "Usage: awsuse <profile>"
+    return 1
+  fi
+  export AWS_PROFILE="$profile"
+  echo "AWS_PROFILE set to: $profile"
+  aws sts get-caller-identity 2>/dev/null || echo "Session expired — run: awslogin $profile"
+}
+
+# Per-org shortcuts: login (al*) and use (au*)
+alias alc="awslogin crediteame"
+alias auc="awsuse crediteame"
+# alias ali="awslogin investtup"
+# alias aui="awsuse investtup"
+# alias all="awslogin lighthouse"
+# alias aul="awsuse lighthouse"
+
 # =============================================================================
 # DOCKER
 # =============================================================================

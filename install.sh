@@ -218,6 +218,17 @@ fi
 
 copy_config_files
 
+# AWS CLI configuration (template-based, non-destructive)
+mkdir -p "$HOME/.aws"
+if [[ ! -f "$HOME/.aws/config" ]]; then
+    cp "$DOTFILES_DIR/config/aws/config.template" "$HOME/.aws/config"
+    chmod 600 "$HOME/.aws/config"
+    print_success "Created AWS CLI config from template"
+    print_warning "Remember to update ~/.aws/config with your actual SSO URLs and account IDs"
+else
+    print_success "AWS CLI config already exists"
+fi
+
 # Cursor settings (if Cursor is installed)
 if [[ -d "$HOME/Library/Application Support/Cursor/User" ]]; then
     copy_file "$DOTFILES_DIR/config/cursor/settings.json" "$HOME/Library/Application Support/Cursor/User/settings.json"

@@ -1,0 +1,52 @@
+# AWS CLI Configuration Template
+# Copy to ~/.aws/config and customize with your actual values
+#
+# Setup:
+#   1. Copy this file: cp config/aws/config.template ~/.aws/config
+#   2. Replace placeholder values with your real account IDs, SSO URLs, and roles
+#   3. Log in: awslogin <profile>
+#   4. Switch: awsuse <profile>
+
+[default]
+region = eu-west-1
+output = json
+
+# ============================================================
+# SSO Sessions (one per organization)
+# ============================================================
+# Each SSO session represents one AWS organization / Identity Center instance.
+# sso_region = where IAM Identity Center is deployed (NOT your workload region)
+
+[sso-session my-org]
+sso_start_url = https://my-org.awsapps.com/start
+sso_region = us-east-1
+sso_registration_scopes = sso:account:access
+
+# [sso-session another-org]
+# sso_start_url = https://another-org.awsapps.com/start
+# sso_region = us-east-1
+# sso_registration_scopes = sso:account:access
+
+# ============================================================
+# Profiles (one per account/role combination)
+# ============================================================
+# Multiple profiles can share the same sso_session.
+# region = where your workloads run (independent of sso_region)
+
+[profile my-org-prod]
+sso_session = my-org
+sso_account_id = 123456789012
+sso_role_name = AdministratorAccess
+region = eu-west-1
+
+# [profile my-org-dev]
+# sso_session = my-org
+# sso_account_id = 987654321098
+# sso_role_name = PowerUserAccess
+# region = eu-west-1
+
+# [profile another-org-prod]
+# sso_session = another-org
+# sso_account_id = 111222333444
+# sso_role_name = AdministratorAccess
+# region = us-east-1
