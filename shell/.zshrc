@@ -132,12 +132,14 @@ awsuse() {
 }
 
 # Per-org shortcuts: login (al*) and use (au*)
-alias alc="awslogin crediteame"
-alias auc="awsuse crediteame"
-alias ali="awslogin investtup"
-alias aui="awsuse investtup"
-# alias all="awslogin lighthouse"
-# alias aul="awsuse lighthouse"
+alias alcred="awslogin crediteame"
+alias aucred="awsuse crediteame"
+alias alinv="awslogin investtup"
+alias auinv="awsuse investtup"
+alias alcrit="awslogin criteria"
+alias aucrit="awsuse criteria"
+# alias allight="awslogin lighthouse"
+# alias aulight="awsuse lighthouse"
 
 # =============================================================================
 # DOCKER
