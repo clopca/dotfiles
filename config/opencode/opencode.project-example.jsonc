@@ -8,7 +8,7 @@
 	// It overrides global settings for this specific project
 
 	// Model selection (optional - inherits from global if not set)
-	// "model": "amazon-bedrock/anthropic.claude-sonnet-4-20250514-v1:0",
+	// "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-20250514-v1:0",
 
 	// ==========================================================================
 	// PROJECT-SPECIFIC MCP SERVERS
@@ -36,7 +36,7 @@
 			"command": ["npx", "-y", "@modelcontextprotocol/server-memory"],
 			"enabled": false
 		}
-	},
+	}
 
 	// ==========================================================================
 	// PROJECT INSTRUCTIONS (SYSTEM PROMPT)

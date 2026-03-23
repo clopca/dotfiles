@@ -173,7 +173,7 @@ Location: `~/.config/opencode/opencode.jsonc`
 ```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "amazon-bedrock/anthropic.claude-opus-4-5-20251101-v1:0",
+  "model": "amazon-bedrock/global.anthropic.claude-opus-4-6-v1",
   "plugin": [
     "opencode-antigravity-auth@1.4.3",
     "opencode-openai-codex-auth",
@@ -209,7 +209,7 @@ Location: `<project>/.opencode/opencode.jsonc`
 
 | Provider | Models |
 |----------|--------|
-| **AWS Bedrock** | claude-opus-4.5, claude-sonnet-4.5 |
+| **AWS Bedrock** | claude-opus-4.6, claude-sonnet-4.5 |
 | **Google (Antigravity)** | gemini-3-pro-high/medium/low, gemini-3-flash |
 | **OpenAI (Codex)** | gpt-5.2, o3, o4-mini, codex-1 |
 
