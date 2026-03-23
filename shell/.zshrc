@@ -141,6 +141,37 @@ alias aucrit="awsuse criteria"
 # alias allight="awslogin lighthouse"
 # alias aulight="awsuse lighthouse"
 
+# Export SSO credentials to [default] in ~/.aws/credentials
+# so any process on the machine (even spawned terminals) can use them
+awsexport() {
+  local profile="${1:-$AWS_PROFILE}"
+  if [[ -z "$profile" ]]; then
+    echo "Usage: awsexport <profile>  (or set AWS_PROFILE first)"
+    return 1
+  fi
+  local creds
+  creds=$(aws configure export-credentials --profile "$profile" --format env-no-export 2>&1)
+  if [[ $? -ne 0 ]]; then
+    echo "Failed to get credentials for '$profile'. Session expired?"
+    echo "Run: awslogin $profile"
+    return 1
+  fi
+  local key secret token
+  key=$(echo "$creds" | grep AWS_ACCESS_KEY_ID | cut -d= -f2)
+  secret=$(echo "$creds" | grep AWS_SECRET_ACCESS_KEY | cut -d= -f2)
+  token=$(echo "$creds" | grep AWS_SESSION_TOKEN | cut -d= -f2)
+  aws configure set aws_access_key_id "$key" --profile default
+  aws configure set aws_secret_access_key "$secret" --profile default
+  aws configure set aws_session_token "$token" --profile default
+  echo "Default credentials set from profile '$profile'"
+  aws sts get-caller-identity --profile default 2>/dev/null
+}
+
+# Per-org shortcuts: export to default (ae*)
+alias aecred="awsexport crediteame"
+alias aeinv="awsexport investtup"
+alias aecrit="awsexport criteria"
+
 # =============================================================================
 # DOCKER
 # =============================================================================
