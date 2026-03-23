@@ -1,0 +1,70 @@
+# AWS CLI Configuration — SSO Sessions & Profiles
+# Managed by dotfiles. Merged into ~/.aws/config by install.sh
+#
+# Usage:
+#   awslogin <profile>   → authenticate via browser + passkey
+#   awsuse <profile>     → switch active profile in current terminal
+
+# ============================================================
+# SSO Sessions (one per organization)
+# ============================================================
+
+[sso-session crediteame]
+sso_start_url = https://sensobox.awsapps.com/start
+sso_region = us-east-1
+sso_registration_scopes = sso:account:access
+
+[sso-session investtup]
+sso_start_url = https://investtup.awsapps.com/start
+sso_region = eu-west-1
+sso_registration_scopes = sso:account:access
+
+[sso-session criteria]
+sso_start_url = https://somoscriteria.awsapps.com/start
+sso_region = eu-west-1
+sso_registration_scopes = sso:account:access
+
+# ============================================================
+# Crediteame profiles
+# ============================================================
+
+[profile crediteame]
+sso_session = crediteame
+sso_account_id = 654654416577
+sso_role_name = AdministratorAccess
+region = eu-west-1
+
+# ============================================================
+# Investtup profiles
+# ============================================================
+
+[profile investtup]
+sso_session = investtup
+sso_account_id = 851725568910
+sso_role_name = AdministratorAccess
+region = eu-west-1
+
+# ============================================================
+# Criteria profiles
+# ============================================================
+
+[profile criteria]
+sso_session = criteria
+sso_account_id = 109964722912
+sso_role_name = AdministratorAccess
+region = eu-west-1
+
+# ============================================================
+# Lighthouse profiles (TBD)
+# ============================================================
+
+# [sso-session lighthouse]
+# sso_start_url = https://???.awsapps.com/start
+# sso_region = eu-west-1
+# sso_registration_scopes = sso:account:access
+
+# [profile lighthouse]
+# sso_session = lighthouse
+# sso_account_id = ???
+# sso_role_name = AdministratorAccess
+# region = eu-west-1

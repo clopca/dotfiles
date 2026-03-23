@@ -43,6 +43,8 @@ dotfiles/
 │   ├── .gitconfig            # Git configuration
 │   └── .gitignore_global     # Global gitignore
 ├── config/
+│   ├── aws/                  # AWS CLI SSO configuration
+│   │   └── config            # SSO sessions & profiles (merged into ~/.aws/config)
 │   ├── opencode/             # OpenCode AI assistant config
 │   │   ├── opencode.jsonc    # Global config (goes to ~/.config/opencode/)
 │   │   ├── package.json      # MCP dependencies
@@ -311,15 +313,28 @@ export WORK_API_KEY="secret"
 alias vpn="networksetup -connectpppoeservice 'Work VPN'"
 ```
 
-### 6. AWS Configuration
+### 6. AWS SSO Configuration
+
+The install script merges SSO sessions and profiles from `config/aws/config` into `~/.aws/config`. This includes customer AWS accounts authenticated via IAM Identity Center (SSO).
+
+| SSO Session | Profile | Account | SSO URL |
+|-------------|---------|---------|---------|
+| `crediteame` | `crediteame` | `654654416577` | `sensobox.awsapps.com` |
+| `investtup` | `investtup` | `851725568910` | `investtup.awsapps.com` |
+| `criteria` | `criteria` | `109964722912` | `somoscriteria.awsapps.com` |
+| `lighthouse` | `lighthouse` | TBD | TBD |
+
+Usage (shell aliases defined in `.aliases`):
 
 ```bash
-# Configure AWS CLI
-aws configure sso
+# Login (opens browser + 1Password passkey, once per day)
+awslogin crediteame    # or: alcred
 
-# Set default region (already in .zshrc)
-export AWS_REGION="eu-west-1"
+# Switch profile in current terminal
+awsuse crediteame      # or: aucred
 ```
+
+Machine-specific profiles (e.g., Isengard) should be added directly to `~/.aws/config` — they won't be overwritten.
 
 ## Remote Development Setup
 

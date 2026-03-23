@@ -218,15 +218,34 @@ fi
 
 copy_config_files
 
-# AWS CLI configuration (template-based, non-destructive)
+# AWS CLI configuration — merge SSO sessions and profiles
 mkdir -p "$HOME/.aws"
-if [[ ! -f "$HOME/.aws/config" ]]; then
-    cp "$DOTFILES_DIR/config/aws/config.template" "$HOME/.aws/config"
-    chmod 600 "$HOME/.aws/config"
-    print_success "Created AWS CLI config from template"
-    print_warning "Remember to update ~/.aws/config with your actual SSO URLs and account IDs"
-else
-    print_success "AWS CLI config already exists"
+AWS_SSO_CONFIG="$DOTFILES_DIR/config/aws/config"
+AWS_TARGET="$HOME/.aws/config"
+if [[ -f "$AWS_SSO_CONFIG" ]]; then
+    if [[ ! -f "$AWS_TARGET" ]]; then
+        # Fresh machine: create with defaults + SSO config
+        printf "[default]\nregion = eu-west-1\noutput = json\n\n" > "$AWS_TARGET"
+        cat "$AWS_SSO_CONFIG" >> "$AWS_TARGET"
+        chmod 600 "$AWS_TARGET"
+        print_success "Created AWS CLI config with SSO sessions"
+    else
+        # Existing config: append any missing SSO sections
+        changed=false
+        while IFS= read -r section; do
+            if ! grep -qF "$section" "$AWS_TARGET"; then
+                changed=true
+            fi
+        done < <(grep -E '^\[(sso-session |profile (crediteame|investtup|criteria))' "$AWS_SSO_CONFIG")
+        if $changed; then
+            printf "\n" >> "$AWS_TARGET"
+            cat "$AWS_SSO_CONFIG" >> "$AWS_TARGET"
+            print_success "Merged SSO sessions into existing AWS CLI config"
+            print_warning "Check ~/.aws/config for any duplicate sections"
+        else
+            print_success "AWS CLI config already has SSO sessions"
+        fi
+    fi
 fi
 
 # Cursor settings (if Cursor is installed)
