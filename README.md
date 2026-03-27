@@ -350,17 +350,19 @@ Machine-specific profiles (e.g., Isengard) should be added directly to `~/.aws/c
 Internal AWS accounts use `isengardcli` as `credential_process` in `~/.aws/config` (auto-fetches creds per CLI call). For system-wide credential export, `ada` writes temp creds to `[default]` in `~/.aws/credentials`.
 
 ```bash
-# Export Isengard creds to [default] (uses ada credentials update)
-isengardexport clopca+cc@amazon.es         # or: ilcc
-isengardexport clopca+aisandbox@amazon.es   # or: ilsandbox
+# Login — set AWS_PROFILE for current session (uses credential_process)
+isengardlogin clopca+cc-Admin   # or: ilcc
+
+# Export — write creds to [default] for all processes (uses ada)
+isengardexport clopca+cc@amazon.es   # or: iecc
 ```
 
-| Alias | Account | Purpose |
-|-------|---------|---------|
-| `ilcc` | `clopca+cc` | Claude Code account |
-| `ilsandbox` | `clopca+aisandbox` | AI sandbox |
-| `ilkiro` | `clopca+kiro` | Kiro |
-| `ilnet` | `clopca+ceca+net` | CECA network |
+| Alias | Account | Login (session) | Export (computer) |
+|-------|---------|-----------------|-------------------|
+| cc | `clopca+cc` | `ilcc` | `iecc` |
+| sandbox | `clopca+aisandbox` | `ilsandbox` | `iesandbox` |
+| kiro | `clopca+kiro` | `ilkiro` | `iekiro` |
+| net | `clopca+ceca+net` | `ilnet` | `ienet` |
 
 ## Remote Development Setup
 

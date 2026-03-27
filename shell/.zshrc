@@ -184,6 +184,24 @@ alias aecred="awsexport crediteame"
 alias aeinv="awsexport investtup"
 alias aecrit="awsexport criteria"
 
+# Isengard — set AWS_PROFILE to use credential_process (current session only)
+isengardlogin() {
+  local profile="$1"
+  if [[ -z "$profile" ]]; then
+    echo "Usage: isengardlogin <profile-name>"
+    return 1
+  fi
+  export AWS_PROFILE="$profile"
+  echo "AWS_PROFILE set to: $profile"
+  aws sts get-caller-identity 2>/dev/null || { echo "Failed — check profile name or Midway session"; return 1; }
+}
+
+# Per-account shortcuts: Isengard session login (il*)
+alias ilcc="isengardlogin clopca+cc-Admin"
+alias ilsandbox="isengardlogin clopca+aisandbox-Admin"
+alias ilkiro="isengardlogin clopca+kiro-Admin"
+alias ilnet="isengardlogin clopca+ceca+net-Admin"
+
 # Isengard — fetch temp credentials via ada and write to [default]
 # so any process on the machine can use them (same pattern as awsexport for SSO)
 isengardexport() {
@@ -204,11 +222,11 @@ isengardexport() {
   fi
 }
 
-# Per-account shortcuts: Isengard export to default (il*)
-alias ilcc="isengardexport clopca+cc@amazon.es"
-alias ilsandbox="isengardexport clopca+aisandbox@amazon.es"
-alias ilkiro="isengardexport clopca+kiro@amazon.es"
-alias ilnet="isengardexport clopca+ceca+net@amazon.es"
+# Per-account shortcuts: Isengard export to default (ie*)
+alias iecc="isengardexport clopca+cc@amazon.es"
+alias iesandbox="isengardexport clopca+aisandbox@amazon.es"
+alias iekiro="isengardexport clopca+kiro@amazon.es"
+alias ienet="isengardexport clopca+ceca+net@amazon.es"
 
 # =============================================================================
 # DOCKER
