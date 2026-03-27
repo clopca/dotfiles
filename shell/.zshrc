@@ -152,9 +152,13 @@ awsexport() {
   local creds
   creds=$(aws configure export-credentials --profile "$profile" --format env-no-export 2>&1)
   if [[ $? -ne 0 ]]; then
-    echo "Failed to get credentials for '$profile'. Session expired?"
-    echo "Run: awslogin $profile"
-    return 1
+    echo "Session expired for '$profile', logging in..."
+    awslogin "$profile" || return 1
+    creds=$(aws configure export-credentials --profile "$profile" --format env-no-export 2>&1)
+    if [[ $? -ne 0 ]]; then
+      echo "Failed to get credentials for '$profile' even after login."
+      return 1
+    fi
   fi
   local key secret token
   key=$(echo "$creds" | grep AWS_ACCESS_KEY_ID | cut -d= -f2)
