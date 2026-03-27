@@ -324,7 +324,7 @@ The install script merges SSO sessions and profiles from `config/aws/config` int
 | `criteria` | `criteria` | `109964722912` | `somoscriteria.awsapps.com` |
 | `lighthouse` | `lighthouse` | TBD | TBD |
 
-Usage (shell aliases defined in `.aliases`):
+Usage (shell aliases defined in `.zshrc`):
 
 ```bash
 # Login (opens browser + 1Password passkey, once per day)
@@ -332,7 +332,16 @@ awslogin crediteame    # or: alcred
 
 # Switch profile in current terminal
 awsuse crediteame      # or: aucred
+
+# Export SSO creds to [default] in ~/.aws/credentials (auto-logins if expired)
+awsexport crediteame   # or: aecred
 ```
+
+| Action | Crediteame | Investtup | Criteria |
+|--------|-----------|-----------|----------|
+| **Login** (SSO browser) | `alcred` | `alinv` | `alcrit` |
+| **Use** (switch profile) | `aucred` | `auinv` | `aucrit` |
+| **Export** (login + creds to default) | `aecred` | `aeinv` | `aecrit` |
 
 Machine-specific profiles (e.g., Isengard) should be added directly to `~/.aws/config` — they won't be overwritten.
 

@@ -115,8 +115,13 @@ awslogin() {
     echo "Profile '$profile' not found or has no sso_session"
     return 1
   fi
-  aws sso login --sso-session "$session" && export AWS_PROFILE="$profile"
-  echo "Logged in and AWS_PROFILE set to: $profile"
+  if aws sso login --sso-session "$session"; then
+    export AWS_PROFILE="$profile"
+    echo "Logged in and AWS_PROFILE set to: $profile"
+  else
+    echo "Login failed for session '$session'"
+    return 1
+  fi
 }
 
 # Just switch profile (no login, assumes already authenticated)
@@ -142,23 +147,25 @@ alias aucrit="awsuse criteria"
 # alias aulight="awsuse lighthouse"
 
 # Export SSO credentials to [default] in ~/.aws/credentials
-# so any process on the machine (even spawned terminals) can use them
+# so any process on the machine (even spawned terminals) can use them.
+# Auto-triggers awslogin if the session is expired.
 awsexport() {
   local profile="${1:-$AWS_PROFILE}"
   if [[ -z "$profile" ]]; then
     echo "Usage: awsexport <profile>  (or set AWS_PROFILE first)"
     return 1
   fi
-  local creds
-  creds=$(aws configure export-credentials --profile "$profile" --format env-no-export 2>&1)
-  if [[ $? -ne 0 ]]; then
+  # Check if credentials are available (discard output, just test exit code)
+  if ! aws configure export-credentials --profile "$profile" --format env-no-export >/dev/null 2>&1; then
     echo "Session expired for '$profile', logging in..."
     awslogin "$profile" || return 1
-    creds=$(aws configure export-credentials --profile "$profile" --format env-no-export 2>&1)
-    if [[ $? -ne 0 ]]; then
-      echo "Failed to get credentials for '$profile' even after login."
-      return 1
-    fi
+  fi
+  # Capture credentials (stderr discarded so it doesn't corrupt output)
+  local creds
+  creds=$(aws configure export-credentials --profile "$profile" --format env-no-export 2>/dev/null)
+  if [[ $? -ne 0 ]]; then
+    echo "Failed to get credentials for '$profile' even after login."
+    return 1
   fi
   local key secret token
   key=$(echo "$creds" | grep AWS_ACCESS_KEY_ID | cut -d= -f2)
@@ -167,7 +174,8 @@ awsexport() {
   aws configure set aws_access_key_id "$key" --profile default
   aws configure set aws_secret_access_key "$secret" --profile default
   aws configure set aws_session_token "$token" --profile default
-  echo "Default credentials set from profile '$profile'"
+  export AWS_PROFILE="$profile"
+  echo "Default credentials set from profile '$profile' (AWS_PROFILE=$profile)"
   aws sts get-caller-identity --profile default 2>/dev/null
 }
 

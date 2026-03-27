@@ -4,6 +4,7 @@
 # Usage:
 #   awslogin <profile>   → authenticate via browser + passkey
 #   awsuse <profile>     → switch active profile in current terminal
+#   awsexport <profile>  → login (if needed) + export creds to [default]
 
 # ============================================================
 # SSO Sessions (one per organization)
