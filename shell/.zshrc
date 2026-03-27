@@ -184,6 +184,32 @@ alias aecred="awsexport crediteame"
 alias aeinv="awsexport investtup"
 alias aecrit="awsexport criteria"
 
+# Isengard — fetch temp credentials via ada and write to [default]
+# so any process on the machine can use them (same pattern as awsexport for SSO)
+isengardexport() {
+  local account="$1"
+  local role="${2:-Admin}"
+  if [[ -z "$account" ]]; then
+    echo "Usage: isengardexport <account-email> [role]"
+    return 1
+  fi
+  echo "Fetching credentials for '$account' (role: $role)..."
+  if ada credentials update --account "$account" --role "$role" --profile default --once; then
+    export AWS_PROFILE="default"
+    echo "Default credentials set from Isengard account '$account'"
+    aws sts get-caller-identity --profile default 2>/dev/null
+  else
+    echo "Failed to get credentials for '$account'"
+    return 1
+  fi
+}
+
+# Per-account shortcuts: Isengard export to default (il*)
+alias ilcc="isengardexport clopca+cc@amazon.es"
+alias ilsandbox="isengardexport clopca+aisandbox@amazon.es"
+alias ilkiro="isengardexport clopca+kiro@amazon.es"
+alias ilnet="isengardexport clopca+ceca+net@amazon.es"
+
 # =============================================================================
 # DOCKER
 # =============================================================================

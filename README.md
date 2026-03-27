@@ -345,6 +345,23 @@ awsexport crediteame   # or: aecred
 
 Machine-specific profiles (e.g., Isengard) should be added directly to `~/.aws/config` — they won't be overwritten.
 
+### 7. AWS Isengard Configuration
+
+Internal AWS accounts use `isengardcli` as `credential_process` in `~/.aws/config` (auto-fetches creds per CLI call). For system-wide credential export, `ada` writes temp creds to `[default]` in `~/.aws/credentials`.
+
+```bash
+# Export Isengard creds to [default] (uses ada credentials update)
+isengardexport clopca+cc@amazon.es         # or: ilcc
+isengardexport clopca+aisandbox@amazon.es   # or: ilsandbox
+```
+
+| Alias | Account | Purpose |
+|-------|---------|---------|
+| `ilcc` | `clopca+cc` | Claude Code account |
+| `ilsandbox` | `clopca+aisandbox` | AI sandbox |
+| `ilkiro` | `clopca+kiro` | Kiro |
+| `ilnet` | `clopca+ceca+net` | CECA network |
+
 ## Remote Development Setup
 
 Use your Mac Mini as a remote dev server accessible from your MacBook Pro (or anywhere).
