@@ -78,7 +78,7 @@ if [[ "$AGENT_MODE" == "true" ]]; then
   alias git='git -c advice.detachedHead=false'
 else
   # Load Powerlevel10k for interactive use (Homebrew path for Apple Silicon)
-  [[ -f /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme ]] && source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+  [[ -f ~/powerlevel10k/powerlevel10k.zsh-theme ]] && source ~/powerlevel10k/powerlevel10k.zsh-theme
   [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fi
 
@@ -146,6 +146,24 @@ alias aucrit="awsuse criteria"
 # alias allight="awslogin lighthouse"
 # alias aulight="awsuse lighthouse"
 
+# Interactive selector: al (pick an AWS SSO profile to login)
+al() {
+  local profiles=(
+    "crediteame"
+    "investtup"
+    "criteria"
+  )
+  echo "Select AWS SSO profile to login:"
+  local choice
+  select choice in "${profiles[@]}"; do
+    if [[ -n "$choice" ]]; then
+      awslogin "$choice"
+      return
+    fi
+    echo "Invalid selection, try again."
+  done
+}
+
 # Export SSO credentials to [default] in ~/.aws/credentials
 # so any process on the machine (even spawned terminals) can use them.
 # Auto-triggers awslogin if the session is expired.
@@ -184,6 +202,24 @@ alias aecred="awsexport crediteame"
 alias aeinv="awsexport investtup"
 alias aecrit="awsexport criteria"
 
+# Interactive selector: ae (pick an AWS SSO profile to export)
+ae() {
+  local profiles=(
+    "crediteame"
+    "investtup"
+    "criteria"
+  )
+  echo "Select AWS SSO profile to export:"
+  local choice
+  select choice in "${profiles[@]}"; do
+    if [[ -n "$choice" ]]; then
+      awsexport "$choice"
+      return
+    fi
+    echo "Invalid selection, try again."
+  done
+}
+
 # Isengard — set AWS_PROFILE to use credential_process (current session only)
 isengardlogin() {
   local profile="$1"
@@ -201,6 +237,25 @@ alias ilcc="isengardlogin clopca+cc-Admin"
 alias ilsandbox="isengardlogin clopca+aisandbox-Admin"
 alias ilkiro="isengardlogin clopca+kiro-Admin"
 alias ilnet="isengardlogin clopca+ceca+net-Admin"
+
+# Interactive selector: il (pick an Isengard profile to login)
+il() {
+  local profiles=(
+    "clopca+cc-Admin"
+    "clopca+aisandbox-Admin"
+    "clopca+kiro-Admin"
+    "clopca+ceca+net-Admin"
+  )
+  echo "Select Isengard account to login:"
+  local choice
+  select choice in "${profiles[@]}"; do
+    if [[ -n "$choice" ]]; then
+      isengardlogin "$choice"
+      return
+    fi
+    echo "Invalid selection, try again."
+  done
+}
 
 # Isengard — fetch temp credentials via ada and write to [default]
 # so any process on the machine can use them (same pattern as awsexport for SSO)
@@ -227,6 +282,25 @@ alias iecc="isengardexport clopca+cc@amazon.es"
 alias iesandbox="isengardexport clopca+aisandbox@amazon.es"
 alias iekiro="isengardexport clopca+kiro@amazon.es"
 alias ienet="isengardexport clopca+ceca+net@amazon.es"
+
+# Interactive selector: ie (pick an Isengard account to export)
+ie() {
+  local accounts=(
+    "clopca+cc@amazon.es"
+    "clopca+aisandbox@amazon.es"
+    "clopca+kiro@amazon.es"
+    "clopca+ceca+net@amazon.es"
+  )
+  echo "Select Isengard account to export:"
+  local choice
+  select choice in "${accounts[@]}"; do
+    if [[ -n "$choice" ]]; then
+      isengardexport "$choice"
+      return
+    fi
+    echo "Invalid selection, try again."
+  done
+}
 
 # =============================================================================
 # DOCKER
