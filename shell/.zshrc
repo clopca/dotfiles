@@ -362,6 +362,12 @@ export CLAUDE_CODE_USE_BEDROCK=1
 alias claude-code="export AWS_PROFILE=claudecode && export CLAUDE_CODE_USE_BEDROCK=1 && export ANTHROPIC_MODEL='global.anthropic.claude-sonnet-4-5-20250929-v1:0' && export DISABLE_TELEMETRY=1 && claude"
 
 # =============================================================================
+# OPEN-MEM (AI memory compression via Bedrock)
+# =============================================================================
+export OPEN_MEM_PROVIDER=bedrock
+export OPEN_MEM_DASHBOARD=true
+
+# =============================================================================
 # OPENCODE CLI
 # =============================================================================
 alias oc="opencode"
