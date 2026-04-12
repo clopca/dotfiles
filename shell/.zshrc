@@ -166,18 +166,15 @@ al() {
 
 # Export SSO credentials to [default] in ~/.aws/credentials
 # so any process on the machine (even spawned terminals) can use them.
-# Auto-triggers awslogin if the session is expired.
+# Always refreshes SSO session + role credentials for a full TTL reset.
 awsexport() {
   local profile="${1:-$AWS_PROFILE}"
   if [[ -z "$profile" ]]; then
     echo "Usage: awsexport <profile>  (or set AWS_PROFILE first)"
     return 1
   fi
-  # Check if credentials are available (discard output, just test exit code)
-  if ! aws configure export-credentials --profile "$profile" --format env-no-export >/dev/null 2>&1; then
-    echo "Session expired for '$profile', logging in..."
-    awslogin "$profile" || return 1
-  fi
+  # Always re-login to refresh SSO session token
+  awslogin "$profile" || return 1
   # Capture credentials (stderr discarded so it doesn't corrupt output)
   local creds
   creds=$(aws configure export-credentials --profile "$profile" --format env-no-export 2>/dev/null)
