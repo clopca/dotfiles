@@ -243,6 +243,22 @@ awsexport() {
   fi
   # Always re-login to refresh SSO session token
   awslogin "$profile" || return 1
+  # Force a fresh 12h role session: the AWS CLI caches STS role credentials in
+  # ~/.aws/cli/cache and reuses them until they expire, so `export-credentials`
+  # would otherwise return the same (non-renewed) creds. Delete this profile's
+  # cached creds so a brand-new session is minted and the 12h clock resets.
+  local account_id cache_dir f
+  account_id=$(aws configure get sso_account_id --profile "$profile" 2>/dev/null)
+  cache_dir="$HOME/.aws/cli/cache"
+  if [[ -n "$account_id" && -d "$cache_dir" ]]; then
+    for f in "$cache_dir"/*.json; do
+      [[ -e "$f" ]] || continue
+      [[ "$(basename "$f")" == "prompt_history.json" ]] && continue
+      if grep -q '"ProviderType"' "$f" 2>/dev/null && grep -q "$account_id" "$f" 2>/dev/null; then
+        rm -f "$f"
+      fi
+    done
+  fi
   # Capture credentials (stderr discarded so it doesn't corrupt output)
   local creds
   creds=$(aws configure export-credentials --profile "$profile" --format env-no-export 2>/dev/null)

@@ -343,6 +343,14 @@ awsexport crediteame   # or: aecred
 | **Use** (switch profile) | `aucred` | `auinv` | `aucrit` |
 | **Export** (login + creds to default) | `aecred` | `aeinv` | `aecrit` |
 
+> **Note:** `awsexport`/`aecred` always mints a **fresh 12h session** even if the
+> current credentials haven't expired yet. The AWS CLI caches role credentials in
+> `~/.aws/cli/cache` and would otherwise reuse them, so `awsexport` deletes that
+> profile's cached entry before calling `export-credentials`. This resets the 12h
+> expiry clock from the moment you run the command. The `[default]` profile in
+> `~/.aws/credentials` keeps the previous (still valid) credentials until the new
+> ones are written, so there is no gap where you're left without credentials.
+
 Machine-specific profiles (e.g., Isengard) should be added directly to `~/.aws/config` — they won't be overwritten.
 
 ### 7. AWS Isengard Configuration
