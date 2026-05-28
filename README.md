@@ -48,6 +48,8 @@ dotfiles/
 │   ├── opencode/             # OpenCode AI assistant config
 │   │   ├── opencode.jsonc    # Global config (goes to ~/.config/opencode/)
 │   │   ├── package.json      # MCP dependencies
+│   │   ├── agent/            # Custom agents (symlinked into ~/.config/opencode/agent/)
+│   │   │   └── shell.md      # `shell` agent: bash pass-through
 │   │   └── opencode.project-example.jsonc  # Project template
 │   ├── ghostty/              # Ghostty terminal config
 │   ├── cursor/               # Cursor editor settings
@@ -223,6 +225,43 @@ Location: `<project>/.opencode/opencode.jsonc`
 | **axiom** | Logs and analytics |
 | **context7** | Documentation search |
 | **playwright** | E2E testing (project-level) |
+
+### 5. Custom Agents
+
+Agent files live in `config/opencode/agent/` and are **symlinked** into
+`~/.config/opencode/agent/` by `install.sh`. Editing the file in the repo
+updates the live agent immediately (after restarting opencode).
+
+| Agent | Mode | Purpose |
+|-------|------|---------|
+| **shell** | primary | Bash pass-through. Executes shell commands as if the user typed them. |
+
+#### `shell` agent
+
+Switch to it with Tab in the opencode TUI. It supports three modes depending on
+how you address it:
+
+1. **Pass-through (Mode A)**: paste a shell command → it runs as-is, no
+   confirmation, no commentary.
+   ```
+   git status && git diff --stat
+   ```
+2. **Propose-and-confirm (Mode B)**: describe the task in natural language →
+   the agent proposes a single command and waits for `sí` / `ok` / `dale`.
+   ```
+   borra los node_modules de los subproyectos
+   ```
+3. **Direct execution (Mode C)**: same as Mode B, but with a "do it now"
+   trigger (`hazlo`, `directamente`, `sin preguntar`, `ya`, or a `!` prefix) →
+   it runs without asking and prints the command it executed.
+   ```
+   crea una carpeta tmp/cache, hazlo
+   !instala ripgrep con brew
+   ```
+
+Permissions: `bash` is `allow` by default, but `sudo *` and `rm -rf *` still
+prompt for confirmation. To loosen or tighten this, edit
+`config/opencode/agent/shell.md` and restart opencode.
 
 ## Shell Features
 

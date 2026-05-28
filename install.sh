@@ -385,6 +385,21 @@ if [[ -f "$DOTFILES_DIR/config/opencode/package.json" ]]; then
     fi
 fi
 
+# Symlink agent files (so editing the dotfiles repo updates the live config)
+if [[ -d "$DOTFILES_DIR/config/opencode/agent" ]]; then
+    mkdir -p "$HOME/.config/opencode/agent"
+    for agent_file in "$DOTFILES_DIR/config/opencode/agent"/*.md; do
+        [[ -f "$agent_file" ]] || continue
+        target="$HOME/.config/opencode/agent/$(basename "$agent_file")"
+        if [[ -L "$target" ]] || [[ ! -e "$target" ]]; then
+            ln -sf "$agent_file" "$target"
+            print_success "OpenCode agent linked: $(basename "$agent_file")"
+        else
+            print_warning "OpenCode agent $(basename "$agent_file") exists as a regular file - not overwriting"
+        fi
+    done
+fi
+
 # Install OpenCode MCP dependencies
 if [[ -f "$HOME/.config/opencode/package.json" ]]; then
     print_step "Installing OpenCode MCP dependencies..."
